@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Navigation from './components/Navigation';
+import Chat from './components/Chat';
+import RoadmapInterface from './components/RoadmapInterface';
 
 // Add modern theme styles
 const style = document.createElement('style');

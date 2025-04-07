@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Lock, LogIn, Mail, Loader2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const SignIn = ({ onSignIn }) => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,41 @@ const SignIn = ({ onSignIn }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [validationErrors, setValidationErrors] = useState({});
+
+  // Dark Ghibli Theme Configuration
+  const DARK_GHIBLI_THEME = {
+    background: {
+      start: '#0A0D16',
+      middle: '#131726',
+      end: '#1A1F2F',
+      overlay: 'rgba(122, 162, 247, 0.05)',
+      glow: 'rgba(122, 162, 247, 0.15)'
+    },
+    primary: {
+      base: '#7AA2F7',
+      light: '#89B4FF',
+      dark: '#6A8EDB'
+    },
+    accent: {
+      base: '#FF79C6',
+      light: '#FF92D0',
+      dark: '#DB4B4B'
+    },
+    secondary: {
+      base: '#9ECE6A',
+      light: '#BAE6B6',
+      dark: '#76946A'
+    },
+    text: {
+      primary: '#E6EEFF',
+      secondary: '#B8C6FF',
+      light: 'rgba(184, 198, 255, 0.85)',
+      gradient: {
+        primary: 'linear-gradient(135deg, #E6EEFF 0%, #7AA2F7 50%, #FF79C6 100%)',
+        secondary: 'linear-gradient(135deg, #B8C6FF 0%, #7AA2F7 50%, #394B70 100%)'
+      }
+    }
+  };
 
   const validateForm = () => {
     const errors = {};
@@ -78,143 +114,161 @@ const SignIn = ({ onSignIn }) => {
   };
 
   return (
-    <div
+    <motion.div
       className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       style={{
         background: `
-          radial-gradient(circle at 10% 0%, rgba(158, 206, 171, 0.2), transparent 35%),
-          radial-gradient(circle at 90% 90%, rgba(255, 121, 198, 0.15), transparent 35%),
+          radial-gradient(circle at 10% 0%, ${DARK_GHIBLI_THEME.background.glow}, transparent 35%),
+          radial-gradient(circle at 90% 90%, ${DARK_GHIBLI_THEME.background.glow}, transparent 35%),
           linear-gradient(135deg, 
-            #F5F7FA 0%,
-            #E8EDF5 50%,
-            #DEE4F0 100%
+            ${DARK_GHIBLI_THEME.background.start} 0%,
+            ${DARK_GHIBLI_THEME.background.middle} 50%,
+            ${DARK_GHIBLI_THEME.background.end} 100%
           )
-        `,
+        `
       }}
     >
       {/* Background Animation */}
-      <div
-        className="absolute inset-0 opacity-30"
+      <motion.div
+        className="fixed inset-0 opacity-40"
+        initial={{ backgroundPosition: '0% 0%' }}
+        animate={{ 
+          backgroundPosition: ['0% 0%', '100% 100%'],
+          transition: {
+            duration: 25,
+            ease: "linear",
+            repeat: Infinity,
+            repeatType: "reverse"
+          }
+        }}
         style={{
           backgroundImage: `
-            radial-gradient(circle at 50% 50%, rgba(158, 206, 171, 0.2) 0%, transparent 35%),
-            radial-gradient(circle at 80% 20%, rgba(255, 121, 198, 0.15) 0%, transparent 45%),
-            radial-gradient(circle at 20% 80%, rgba(122, 162, 247, 0.15) 0%, transparent 45%)
+            radial-gradient(circle at 50% 50%, ${DARK_GHIBLI_THEME.background.glow} 0%, transparent 35%),
+            radial-gradient(circle at 80% 20%, ${DARK_GHIBLI_THEME.accent.base}22 0%, transparent 45%),
+            radial-gradient(circle at 20% 80%, ${DARK_GHIBLI_THEME.primary.base}22 0%, transparent 45%),
+            radial-gradient(circle at 65% 35%, ${DARK_GHIBLI_THEME.secondary.base}22 0%, transparent 40%)
           `,
-          filter: 'blur(80px)',
-          pointerEvents: 'none',
+          filter: 'blur(100px)',
+          pointerEvents: 'none'
         }}
       />
 
-      <div
-        className="bg-white/80 p-8 rounded-2xl shadow-xl w-full max-w-md backdrop-blur-sm relative"
+      <motion.div
+        className="relative p-8 rounded-2xl w-full max-w-md backdrop-blur-sm"
+        initial={{ scale: 0.95, y: 20 }}
+        animate={{ scale: 1, y: 0 }}
         style={{
-          border: '1px solid rgba(158, 206, 171, 0.2)',
-          boxShadow: '0 4px 24px rgba(0, 0, 0, 0.1)',
+          backgroundColor: 'rgba(26, 27, 38, 0.8)',
+          border: `1px solid ${DARK_GHIBLI_THEME.background.overlay}`,
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4)'
         }}
       >
         <div className="text-center mb-8">
-          <h2 
-            className="text-3xl font-heading mb-2"
+          <motion.h2 
+            className="text-4xl font-heading mb-2"
+            initial={{ y: -20, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
             style={{ 
-              color: '#2E3554',
-              fontFamily: "'Cormorant Garamond', serif",
-              fontWeight: 700,
-              fontStyle: 'italic',
-              letterSpacing: '-0.02em',
-              textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+              backgroundImage: DARK_GHIBLI_THEME.text.gradient.primary,
+              WebkitBackgroundClip: 'text',
+              backgroundClip: 'text',
+              color: 'transparent'
             }}
           >
             {isSignUp ? 'Create Account' : 'Welcome Back'}
-          </h2>
-          <p 
+          </motion.h2>
+          <motion.p 
             className="text-base"
-            style={{ 
-              color: '#394B70',
-              fontFamily: "'Source Sans Pro', sans-serif",
-              fontWeight: 400,
-              fontStyle: 'italic',
-              letterSpacing: '0.01em',
-            }}
+            initial={{ y: -10, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            style={{ color: DARK_GHIBLI_THEME.text.secondary }}
           >
             {isSignUp
               ? 'Start your research journey'
               : 'Sign in to access your research roadmaps'}
-          </p>
+          </motion.p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4">
           <div className="relative">
-            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2" style={{ color: '#394B70' }} size={20} />
+            <Mail 
+              className="absolute left-3 top-1/2 transform -translate-y-1/2" 
+              style={{ color: DARK_GHIBLI_THEME.text.secondary }} 
+              size={20} 
+            />
             <input
               type="email"
               name="email"
               value={formData.email}
               onChange={handleInputChange}
               placeholder="Email address"
-              className={`pl-10 w-full p-3 rounded-lg transition-all duration-300 ${
-                validationErrors.email ? 'border-red-400' : ''
-              }`}
+              className="w-full pl-10 p-3 rounded-lg transition-all duration-300"
               style={{
-                border: `1px solid ${validationErrors.email ? 'rgba(255, 121, 198, 0.5)' : 'rgba(158, 206, 171, 0.3)'}`,
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                color: '#2E3554',
-                fontFamily: "'Source Sans Pro', sans-serif",
-                fontSize: '0.95rem',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                border: `1px solid ${validationErrors.email ? DARK_GHIBLI_THEME.accent.base : DARK_GHIBLI_THEME.background.overlay}`,
+                color: DARK_GHIBLI_THEME.text.primary
               }}
             />
             {validationErrors.email && (
-              <p className="text-red-500 text-sm mt-1">{validationErrors.email}</p>
+              <p className="text-sm mt-1" style={{ color: DARK_GHIBLI_THEME.accent.base }}>
+                {validationErrors.email}
+              </p>
             )}
           </div>
 
           <div className="relative">
-            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2" style={{ color: '#394B70' }} size={20} />
+            <Lock 
+              className="absolute left-3 top-1/2 transform -translate-y-1/2" 
+              style={{ color: DARK_GHIBLI_THEME.text.secondary }} 
+              size={20} 
+            />
             <input
               type="password"
               name="password"
               value={formData.password}
               onChange={handleInputChange}
               placeholder="Password"
-              className={`pl-10 w-full p-3 rounded-lg transition-all duration-300 ${
-                validationErrors.password ? 'border-red-400' : ''
-              }`}
+              className="w-full pl-10 p-3 rounded-lg transition-all duration-300"
               style={{
-                border: `1px solid ${validationErrors.password ? 'rgba(255, 121, 198, 0.5)' : 'rgba(158, 206, 171, 0.3)'}`,
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
-                color: '#2E3554',
-                fontFamily: "'Source Sans Pro', sans-serif",
-                fontSize: '0.95rem',
+                backgroundColor: 'rgba(255, 255, 255, 0.05)',
+                border: `1px solid ${validationErrors.password ? DARK_GHIBLI_THEME.accent.base : DARK_GHIBLI_THEME.background.overlay}`,
+                color: DARK_GHIBLI_THEME.text.primary
               }}
             />
             {validationErrors.password && (
-              <p className="text-red-500 text-sm mt-1">{validationErrors.password}</p>
+              <p className="text-sm mt-1" style={{ color: DARK_GHIBLI_THEME.accent.base }}>
+                {validationErrors.password}
+              </p>
             )}
           </div>
 
           {error && (
-            <p
-              className="text-red-500 text-sm text-center font-medium"
-              style={{
-                textShadow: '0 0 10px rgba(255, 121, 198, 0.2)',
-              }}
+            <motion.p
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-sm text-center"
+              style={{ color: DARK_GHIBLI_THEME.accent.base }}
             >
               {error}
-            </p>
+            </motion.p>
           )}
 
-          <button
+          <motion.button
             type="submit"
             disabled={loading}
-            className="w-full p-3 rounded-lg text-white flex items-center justify-center space-x-2 transition-all duration-300"
+            className="w-full p-3 rounded-lg flex items-center justify-center gap-2"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
             style={{
-              background: 'linear-gradient(135deg, #9ECE6A, #7AA2F7)',
-              boxShadow: '0 2px 12px rgba(158, 206, 171, 0.3)',
-              fontFamily: "'Source Sans Pro', sans-serif",
-              fontWeight: 500,
-              letterSpacing: '0.02em',
+              background: `linear-gradient(135deg, 
+                ${DARK_GHIBLI_THEME.primary.base},
+                ${DARK_GHIBLI_THEME.accent.base}
+              )`,
               opacity: loading ? 0.7 : 1,
-              cursor: loading ? 'not-allowed' : 'pointer',
+              color: '#FFFFFF'
             }}
           >
             {loading ? (
@@ -228,30 +282,28 @@ const SignIn = ({ onSignIn }) => {
                 <span>{isSignUp ? 'Create Account' : 'Sign In'}</span>
               </>
             )}
-          </button>
+          </motion.button>
         </form>
 
         <div className="mt-6 text-center">
-          <button
+          <motion.button
             onClick={handleToggleMode}
             disabled={loading}
-            className="text-sm hover:underline transition-all duration-300"
+            className="text-sm hover:opacity-80 transition-opacity"
+            whileHover={{ scale: 1.05 }}
             style={{ 
-              color: '#394B70',
-              fontFamily: "'Source Sans Pro', sans-serif",
-              fontWeight: 400,
-              fontStyle: 'italic',
+              color: DARK_GHIBLI_THEME.text.secondary,
               opacity: loading ? 0.5 : 1,
-              cursor: loading ? 'not-allowed' : 'pointer',
+              cursor: loading ? 'not-allowed' : 'pointer'
             }}
           >
             {isSignUp
               ? 'Already have an account? Sign in'
               : 'Need an account? Sign up'}
-          </button>
+          </motion.button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

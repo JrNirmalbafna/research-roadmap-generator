@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const SignIn = () => {
@@ -9,6 +9,7 @@ const SignIn = () => {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +32,7 @@ const SignIn = () => {
       if (formData.email && formData.password) {
         // Handle successful sign in
         console.log('Sign in successful');
+        navigate('/personalize');
       } else {
         throw new Error('Invalid credentials');
       }
@@ -41,32 +43,22 @@ const SignIn = () => {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    try {
-      setLoading(true);
-      // Implement Google Sign In logic here
-      console.log('Google sign in initiated');
-      // Redirect to Google OAuth
-      window.location.href = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=10802967581-t7flodf5jf0gh7gg5k1s9fvjqi814htl.apps.googleusercontent.com&redirect_uri=http://localhost:3005/auth/google/callback&response_type=code&scope=email profile';
-    } catch (err) {
-      setError('Google sign in failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+  const handleGoogleSignIn = () => {
+    const GOOGLE_CLIENT_ID = '10802967581-t7flodf5jf0gh7gg5k1s9fvjqi814htl.apps.googleusercontent.com';
+    const REDIRECT_URI = 'http://localhost:3005/auth/google/callback';
+    const SCOPE = 'email profile';
+    
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${GOOGLE_CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=${SCOPE}`;
+    window.location.href = googleAuthUrl;
   };
 
-  const handleGithubSignIn = async () => {
-    try {
-      setLoading(true);
-      // Implement GitHub Sign In logic here
-      console.log('GitHub sign in initiated');
-      // Redirect to GitHub OAuth
-      window.location.href = 'https://github.com/login/oauth/authorize?client_id=Ov23liKobjaQsOxHAMYv&redirect_uri=http://localhost:3005/auth/github/callback&scope=user:email';
-    } catch (err) {
-      setError('GitHub sign in failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+  const handleGithubSignIn = () => {
+    const GITHUB_CLIENT_ID = 'Ov23liKobjaQsOxHAMYv';
+    const REDIRECT_URI = 'http://localhost:3005/auth/github/callback';
+    const SCOPE = 'user:email read:user';
+    
+    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(SCOPE)}`;
+    window.location.href = githubAuthUrl;
   };
 
   return (
@@ -93,7 +85,7 @@ const SignIn = () => {
       />
 
       {/* Content layer */}
-      <div className="relative min-h-screen flex items-center justify-center z-10">
+      <div className="relative min-h-screen flex items-center justify-center z-10 pt-10">
         <motion.div
           className="w-full max-w-md mx-6 p-8 rounded-2xl bg-white/90 backdrop-blur-md shadow-[0_8px_32px_rgb(0,0,0,0.15)] border border-white/50"
           initial={{ opacity: 0, y: 20 }}

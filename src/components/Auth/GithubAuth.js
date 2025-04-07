@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-const GoogleAuth = () => {
+const GithubAuth = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useAuth();
@@ -23,4 +23,4 @@ const GoogleAuth = () => {
   return null;
 };
 
-export default GoogleAuth; 
+export default GithubAuth; 

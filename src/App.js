@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Navigation from './components/Navigation';
+import GoogleAuth from './components/Auth/GoogleAuth';
+import GithubAuth from './components/Auth/GithubAuth';
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
 
 // Add modern theme styles
 const style = document.createElement('style');
@@ -257,16 +261,27 @@ document.head.appendChild(style);
 
 function App() {
   return (
-    <Router>
+    <AuthProvider>
+      <Router>
         <div className="dark-theme">
-        <Routes>
+          <Routes>
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
-          <Route path="/personalize" element={<SignUp initialStep={5} />} />
-          <Route path="/" element={<Navigation />} />
-        </Routes>
-      </div>
-    </Router>
+            <Route
+              path="/personalize"
+              element={
+                <ProtectedRoute>
+                  <SignUp initialStep={5} />
+                </ProtectedRoute>
+              }
+            />
+            <Route path="/auth/google/callback" element={<GoogleAuth />} />
+            <Route path="/auth/github/callback" element={<GithubAuth />} />
+            <Route path="/" element={<Navigation />} />
+          </Routes>
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 

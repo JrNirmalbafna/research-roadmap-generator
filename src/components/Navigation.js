@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import NavigationDropdown from './NavigationDropdown';
+import Footer from './Footer';
 
 const pulse = keyframes`
   0% { transform: scale(1); opacity: 0.5; }
@@ -178,40 +179,23 @@ function Navigation() {
       title: "Research",
       items: [
         {
-          title: "Research Tools",
+          title: "Roadmaps",
           items: [
-            { name: "Roadmap Generator", href: "/roadmap" },
-            { name: "Literature Review", href: "/literature" },
-            { name: "Citation Manager", href: "/citations" }
-          ]
-        },
-        {
-          title: "Resources",
-          items: [
-            { name: "Research Guides", href: "/guides" },
-            { name: "Templates", href: "/templates" },
-            { name: "Best Practices", href: "/practices" }
+            { name: "Web Development Roadmap", href: "/signin" },
+            { name: "DSA Roadmap", href: "/signin" },
+            { name: "Programming Languages Roadmap", href: "/signin" }
           ]
         }
       ]
     },
-    collaborate: {
-      title: "Collaborate",
+    tools: {
+      title: "Research Tools",
       items: [
         {
-          title: "Team Features",
+          title: "Tools",
           items: [
-            { name: "Project Spaces", href: "/projects" },
-            { name: "Shared Libraries", href: "/libraries" },
-            { name: "Discussion Forums", href: "/forums" }
-          ]
-        },
-        {
-          title: "Community",
-          items: [
-            { name: "Research Groups", href: "/groups" },
-            { name: "Expert Network", href: "/experts" },
-            { name: "Events", href: "/events" }
+            { name: "Roadmap Generator", href: "/signin" },
+            { name: "Content Summarization", href: "/signin" }
           ]
         }
       ]
@@ -221,7 +205,7 @@ function Navigation() {
   return (
     <div className="min-h-screen flex flex-col bg-[#0B1221]">
       {/* Header */}
-      <nav className="bg-[#1A1B3B]/80 backdrop-blur-md border-b border-white/10">
+      <nav className="bg-[#1A1B3B]/80 backdrop-blur-md border-b border-white/10 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
@@ -358,14 +342,14 @@ function Navigation() {
           <div className="absolute inset-0 flex justify-center items-center">
             <div className="w-[1300px] h-full relative">
               <div 
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700 hover:scale-105 hover:brightness-125" 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700 hover:scale-105 hover:brightness-125 z-0" 
                 style={{ 
                   backgroundImage: `url(${process.env.PUBLIC_URL}/images/flower-background.jpg)`,
                   filter: 'brightness(1.2)'
                 }} 
               />
               {/* Text Overlay */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center">
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
                 <BackgroundGlow />
                 
                 <div className="relative max-w-4xl text-center space-y-8 px-4">
@@ -502,6 +486,9 @@ function Navigation() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

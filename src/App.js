@@ -258,10 +258,10 @@ document.head.appendChild(style);
 function App() {
   return (
     <Router>
-      <div className="dark-theme">
+        <div className="dark-theme">
         <Routes>
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<SignUp />} />
           <Route path="/personalize" element={<SignUp initialStep={5} />} />
           <Route path="/" element={<Navigation />} />
         </Routes>

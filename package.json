@@ -19,7 +19,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "set PORT=3004 && react-scripts start",
+    "start": "set PORT=3005 && react-scripts start",
     "server": "node server.cjs",
     "build": "react-scripts build",
     "test": "react-scripts test",

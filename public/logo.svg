@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="118" height="20" viewBox="0 0 118 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Book/Research Icon -->
+  <path d="M4 0H16C17.1046 0 18 0.895431 18 2V18C18 19.1046 17.1046 20 16 20H4C2.89543 20 2 19.1046 2 18V2C2 0.895431 2.89543 0 4 0Z" fill="#7AA2F7"/>
+  <path d="M6 4H14V6H6V4Z" fill="white"/>
+  <path d="M6 8H14V10H6V8Z" fill="white"/>
+  <path d="M6 12H10V14H6V12Z" fill="white"/>
+  
+  <!-- Road/Path Element -->
+  <path d="M22 10L26 6L30 10L26 14L22 10Z" fill="#FF79C6"/>
+  <path d="M26 6L30 10L26 14" stroke="#FF79C6" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Text -->
+  <text x="40" y="15" font-family="Inter" font-size="16" font-weight="600" fill="#2E3554">Frontier</text>
+</svg> 

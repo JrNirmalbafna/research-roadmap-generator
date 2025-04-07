@@ -1,5 +1,5 @@
 """
-URL configuration for pathfinder project.
+URL configuration for data_processor project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import TemplateView
-from rest_framework.schemas import get_schema_view
+from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/auth/', include('accounts.urls')),
-    path('', TemplateView.as_view(template_name='index.html')),
+    path('api/', include('processor.api.urls')),
+    path('api-auth/', include('rest_framework.urls')),
+    # Redirect root to admin
+    path('', RedirectView.as_view(url='/admin/', permanent=False)),
 ]
-

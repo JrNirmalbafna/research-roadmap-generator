@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
-    'accounts',
+    # 'accounts',  # Temporarily commented out
 ]
 
 MIDDLEWARE = [
@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'pathfinder.urls'
+ROOT_URLCONF = 'pathfinder_core.urls'
 
 TEMPLATES = [
     {
@@ -73,7 +73,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'pathfinder.wsgi.application'
+WSGI_APPLICATION = 'pathfinder_core.wsgi.application'
 
 
 # Database
@@ -143,4 +143,4 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # Custom User Model
-AUTH_USER_MODEL = 'accounts.CustomUser'
+# AUTH_USER_MODEL = 'accounts.CustomUser'  # Temporarily commented out

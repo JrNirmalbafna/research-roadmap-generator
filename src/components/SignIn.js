@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../context/AuthContext';
 
 const SignIn = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const SignIn = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,28 +21,24 @@ const SignIn = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Mock authentication
-      if (formData.email && formData.password) {
-        // Handle successful sign in
-        console.log('Sign in successful');
-        navigate('/personalize');
-      } else {
-        throw new Error('Invalid credentials');
-      }
-    } catch (err) {
-      setError(err.message || 'Authentication failed. Please try again.');
-    } finally {
+    // Validation: Check if email and password are not empty
+    if (!formData.email || !formData.password) {
+      setError('Please enter both email and password.');
       setLoading(false);
+      return;
     }
+
+    // Simulate successful sign in
+    console.log('Sign in successful');
+    login();
+    navigate('/personalize'); // Redirect to personalization page
+
+    setLoading(false);
   };
 
   const handleGoogleSignIn = () => {
@@ -53,8 +51,8 @@ const SignIn = () => {
   };
 
   const handleGithubSignIn = () => {
-    const GITHUB_CLIENT_ID = 'Ov23liKobjaQsOxHAMYv';
-    const REDIRECT_URI = 'http://localhost:3005/auth/github/callback';
+    const GITHUB_CLIENT_ID = 'Ov23liMgqeaztuiMeVqA';
+    const REDIRECT_URI = 'https://github.com/login/oauth/authorize?client_id=Ov23liMgqeaztuiMeVqA&redirect_uri=https://localhost:3005/auth/github/callback&scope=user:email%20read:userhttps://localhost:3005/auth/github/callback&code=aad57ea904acdcd7bed1&code=737d1ab8c6a5b0e8f4e0';
     const SCOPE = 'user:email read:user';
     
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=${encodeURIComponent(SCOPE)}`;

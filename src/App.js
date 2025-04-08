@@ -7,6 +7,7 @@ import GoogleAuth from './components/Auth/GoogleAuth';
 import GithubAuth from './components/Auth/GithubAuth';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import ChatInterface from './components/ChatInterface';
 
 // Add modern theme styles
 const style = document.createElement('style');
@@ -277,6 +278,7 @@ function App() {
             />
             <Route path="/auth/google/callback" element={<GoogleAuth />} />
             <Route path="/auth/github/callback" element={<GithubAuth />} />
+            <Route path="/chat" element={<ChatInterface />} />
             <Route path="/" element={<Navigation />} />
           </Routes>
         </div>

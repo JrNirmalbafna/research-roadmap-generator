@@ -14,7 +14,7 @@ const PersonalizationForm = ({ onSubmit, onGenerateClick }) => {
 
     // Learning Preferences
     preferredLearningMethods: [],
-    weeklyTimeCommitment: '',
+    dailyTimeCommitment: '',
     learningStyle: '',
     theoreticalVsPractical: '',
     interestedInCertifications: false,
@@ -94,6 +94,7 @@ const PersonalizationForm = ({ onSubmit, onGenerateClick }) => {
               placeholder="Enter skills (comma separated)"
               className="w-full px-4 py-2 rounded-xl bg-white/80 border border-[#2A4365]/20
                 text-[#2A4365] placeholder-[#4A5568] focus:outline-none focus:border-[#2A4365]
+                focus:ring-2 focus:ring-[#2A4365]
                 focus:ring-2 focus:ring-[#2A4365]/20"
             />
           </div>
@@ -178,28 +179,27 @@ const PersonalizationForm = ({ onSubmit, onGenerateClick }) => {
                     value={method.toLowerCase()}
                     checked={formData.preferredLearningMethods.includes(method.toLowerCase())}
                     onChange={handleMultiSelect}
-                    className="rounded border-[#2A4365] text-[#2A4365] focus:ring-[#2A4365]"
+                    className={`rounded border-[#2A4365] text-[#2A4365] focus:ring-[#2A4365] ${formData.preferredLearningMethods.includes(method.toLowerCase()) ? 'text-[#FF4B36]' : ''}`}
                   />
-                  <span className="text-sm text-[#2A4365]">{method}</span>
+                  <span className={`text-sm ${formData.preferredLearningMethods.includes(method.toLowerCase()) ? 'text-[#FF4B36]' : 'text-[#2A4365]'}`}>{method}</span>
                 </label>
               ))}
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-[#2A4365] mb-2">Weekly time commitment?</label>
+            <label className="block text-sm font-medium text-[#2A4365] mb-2">Daily time commitment?</label>
             <select
-              name="weeklyTimeCommitment"
-              value={formData.weeklyTimeCommitment}
+              name="dailyTimeCommitment"
+              value={formData.dailyTimeCommitment}
               onChange={handleChange}
               className="w-full px-4 py-2 rounded-xl bg-white/80 border border-[#2A4365]/20
                 text-[#2A4365] focus:outline-none focus:border-[#2A4365] focus:ring-2 focus:ring-[#2A4365]/20"
             >
               <option value="">Select time commitment</option>
+              <option value="0-1">0-1 hour</option>
               <option value="1-2">1-2 hours</option>
-              <option value="3-5">3-5 hours</option>
-              <option value="6-10">6-10 hours</option>
-              <option value="10+">10+ hours</option>
+              <option value="2+">2+ hours</option>
             </select>
           </div>
 
